@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>reveal.js - Markdown Example</title>
+
+    <!-- <link rel="stylesheet" href="css/speech.css" /> -->
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+
+    <!-- Ajout du theme Kanoma (police par défaut)-->
+    <!-- <link rel="stylesheet" href="dist/theme/kanoma/kanoma.css" id="theme" /> -->
+    <link rel="stylesheet" href="dist/theme/solarized.css" id="theme" />
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section
+          data-markdown="./formation.md"
+          data-separator="^---"
+          data-separator-vertical="^--"
+        ></section>
+      </div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        slideNumber: "c/t",
+        center: true,
+        overview: true,
+
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+
+    <!-- <div>
+      <p class="output"><em>...en attente</em></p>
+    </div>
+    <script src="./js/speech.js"></script> -->
+  </body>
+</html>
