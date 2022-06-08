@@ -1,10 +1,6 @@
 ![profil](./assets/profil.png)
 
-[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/cy_hue.svg?style=social&label=Follow%20%40cy_hue)](https://twitter.com/cy_hue)
-
-@cy_hue
-
-[https://horsty.fr](https://horsty.fr)
+[@cy_hue](https://twitter.com/cy_hue) - [https://horsty.fr](https://horsty.fr)
 
 ---
 
@@ -16,23 +12,42 @@ Librairie javascript pour créer des interfaces utilisateurs
 
 ---
 
-Prérequis : docker compose qui fonctionne + impression écran de la page final
-Docker-compose 2.3.3 (1.29.2)
-Support papier
-docker-compose modifié pour node_modules
+### Prérequis :
 
+- Docker installé
+- Lancer la commande et screen du terminal :
+
+  ```
+  docker-compose -f docker-compose.dev.yml up
+  ```
+
+- Changer de branche et screen du projet http://localhost:3000 :
+  ```
+  git checkout starter
+  ```
+
+note:
 Extension setup :
 recommandation sous vscode
 
 ---
 
-Déroulé de la journée
+![Screen compilation](./assets/compilation.png)
 
-- présentation café / croissant
-- historique de react
-- le javascript modern
-- premier composant
-- présentation react théorique
+---
+
+![Starter](./assets/starter.png)
+
+---
+
+### Déroulé de la matiné
+
+- Présentation café / croissant
+- Présentation React
+- Javascript modern
+- Présentation react théorique
+- Premier composant
+- Déjeuner
 
 Note: On va voir :
 
@@ -48,15 +63,25 @@ Note: On va voir :
 
 ---
 
-### Pourquoi React ? Problématique :
+### React c'est quoi ?
+
+- Librairie open source
+- Pousse à l'utilisation de composant reutilisable
+- Permet de modifier la donnée sans recharger la page
+- Rapide, simple, evolutif
+
+Note:
 
 - synchroniser l'état de l'application avec l'interface utilisateur. Ex ajout une tache, le dom ajoute un li, un bouton pour supprimer apparait, etc. Complexité grandissante
 - page avec les gros utilisateurs de react ---> grosse communauté
 - React =/= framework
 - Jsx (expliqué après)
+  Jordan Walke - reacte sépare l'état et la vue. React est différent des autres framework. Simple en surface utilisation de JSX. Communauté
+  React DOM compare l’élément et ses enfants avec la version précédente, et applique uniquement les mises à jour DOM nécessaires pour refléter l’état voulu.
 
-Note: Jordan Walke - reacte sépare l'état et la vue. React est différent des autres framework. Simple en surface utilisation de JSX. Communauté
-React DOM compare l’élément et ses enfants avec la version précédente, et applique uniquement les mises à jour DOM nécessaires pour refléter l’état voulu.
+---
+
+<img height=500 src="./assets/user-react.png">
 
 ---
 
@@ -64,7 +89,7 @@ React DOM compare l’élément et ses enfants avec la version précédente, et 
 
 ---
 
-- let + const
+### let + const
 
 ```js
 var maVar = 0;
@@ -78,7 +103,15 @@ const maConst = 12; // readonly
 maConst = "bar"; // ERROR
 ```
 
-- arrows function
+Note:
+
+- ES6 - 2015
+- pas stocké dans `global`
+- scope local à la fonction
+
+---
+
+### Arrows function
 
 ```js
 function getTwice(value) {
@@ -88,24 +121,34 @@ function getTwice(value) {
 const getTwice = (value) => value * 2;
 ```
 
+note:
+
+- avant chaque nouvelle fonction définissait son propre this --> c'était confusant
 - binding de this (vulgariser)
+- arrow function plus courte à écrire, pas de this propre on garde le this de la classe
 
 ---
 
-- Template strings - sucre syntaxique pour construire des strings, comme la string interpolation
+### Template strings
 
 ```js
-const name = "Bob";
-const time = "today";
+const name = "Cyril";
+const adjectif = "the best";
 // Avant
-const phrase = "Hello " + name + ", how are you " + time + "?";
+const phrase = "Hello " + name + ", you are " + adjectif + "!";
 // Aprés
-const phrase = `Hello ${name}, how are you ${time}?`;
+const phrase = `Hello ${name}, you are ${adjectif} !`;
 ```
+
+note:
+
+- sucre syntaxique pour construire des strings, comme la string interpolation
+- placeholders
+- saut de ligne concervé
 
 ---
 
-- Destructuring - binding utilisant le pattern matching
+### Destructuring - Objet (1/2)
 
 ```js
 const obj = {
@@ -123,137 +166,224 @@ console.log(kanoma); // quux
 console.log(corge); // undefined
 ```
 
+note:
+
+- binding utilisant le pattern matching
+- extraire des données d'un tableau ou d'un objet grâce à une syntaxe dont la forme ressemble à la structure du tableau ou de l'objet.
+- pouvoir ignorer des valeurs
+
 ---
 
-### JSX
+### Destructuring - Array (2/2)
 
 ```js
-const element = <h1>Bonjour, monde !</h1>;
+let a, b, rest;
+[a, b] = [10, 20];
+
+console.log(a);
+// expected output: 10
+
+console.log(b);
+// expected output: 20
+
+[a, b, ...rest] = [10, 20, 30, 40, 50];
+
+console.log(rest);
+// expected output: Array [30,40,50]
 ```
 
-```js
-const name = "Clarisse Agbegnenou";
-const element = <h1>Bonjour, {name}</h1>;
+---
+
+### JSX (1/2)
+
+```html
+<MyButton color="blue" shadowSize="{2}">
+  Cliquez ici
+</MyButton>
+
+React.createElement(
+  MyButton, 
+  { color: "blue", shadowSize: 2 }, 
+  "Cliquez ici"
+);
 ```
 
-Safe ! https://fr.reactjs.org/docs/introducing-jsx.html#jsx-prevents-injection-attacks
+```html
+<div className="sidebar" />
+
+React.createElement(
+  "div", 
+  { className: "sidebar" }
+);
+```
 
 Note: Cette syntaxe étant propre à React elle n'est pas comprise par le navigateur et il nous faudra donc un outil pour convertir le JSX en JavaScript. On peut utiliser différents outils pour cela (Webpack avec babel, Parcel, Rollup avec babel, Esbuild...)
 https://babeljs.io/docs/en/editors/
 
+Fondamentalement, JSX fournit juste du sucre syntaxique pour la fonction React.createElement(component, props, ...children).
+
+Produit des élément react
+Safe ! https://fr.reactjs.org/docs/introducing-jsx.html#jsx-prevents-injection-attacks
+
+- JSX créé un objet
+- on peut la fermer si la balise est vide
+- ou au contraire l'ouvrir si y'a un enfant
+- Les types commençant par une lettre majuscule indiquent que la balise JSX fait référence à un composant React. Ces balises sont compilées en références directes à la variable nommée, donc si vous utilisez l’expression JSX <Foo />, l’identifiant Foo doit être présent dans la portée.
+- Composant == Lettre majuscule
+- Balise html / natif == Lettre minuscule
+
 ---
 
-Déroulé de la journée
+### JSX (2/2)
 
-- [x] présentation café / croissant
+```js
+import React from "react";
 
-- [x] historique de react
-- [x] le javascript modern
-- [ ] présentation react théorique
-- [ ] premier composant
+function Hello(props) {
+  return <div>Hello {props.toWhat}</div>;
+}
+
+function HelloWorld() {
+  return <Hello toWhat="World" />;
+}
+```
+
+---
+
+### Déroulé de la matiné
+
+- ~~Présentation café / croissant~~
+- ~~Présentation React~~
+- ~~Javascript modern~~
+- ~~Présentation react théorique~~
+- Premier composant
+- Déjeuner
 
 ---
 
 ### Premier composant
 
 ```bash
-git clone git@github.com:Horsty80/admin.git
 git checkout starter
 ```
 
-Presente le projet
+Essayons de refacto ce composant
 
 ```bash
 git checkout first-component
 ```
 
-Essayons de refacto ce composant
+Note: expliquer mon decoupage en composant et refacto navigation
 
-dans la doc préparer :
+---
 
-- comment instancier un projet re
+### Résultat
 
 ```bash
 git checkout first-component-refacto
 ```
 
-Expliquer pourquoi un children obligatoirement avec une majuscule dans la notation
+---
+
+### Déroulé de la matiné
+
+- ~~Présentation café / croissant~~
+- ~~Présentation React~~
+- ~~Javascript modern~~
+- ~~Présentation react théorique~~
+- ~~Premier composant~~
+- Déjeuner
 
 ---
 
-Déroulé de la journée
+### Déroulé de l'après-midi
 
-9h - 12h
+- Hooks
+- Context
+- Présentation avancée Hooks + Context
+- Atelier
+- Fin de formation
+- Surprise
 
-- [x] présentation café / croissant 9h/9h30
-- [x] historique de react 9h30
-- [x] le javascript moderne 10h30
-- [x] premier composant 1h/1h30
+note:
 
----
-
-14h - 18h
-
-- [ ] hooks -> cas pratique 30min/45min
-- [ ] context -> cas pratique 30min/45min
-- [ ] hooks + context -> présentation avancé 15min
-- [ ] atelier -> synthése de la formation cas pratique 1h30/2h
-- [ ] fin de journée (formulaire/echange)
-- [ ] surprise (pour allez plus loin / présentation exemple / biere )
+- Hooks -> explication 30min/45min
+- context -> cas pratique 30min/45min
+- hooks + context -> présentation avancé 15min
+- atelier -> synthése de la formation cas pratique 1h30/2h
+- fin de journée (formulaire/echange)
+- surprise (pour allez plus loin / présentation exemple / biere )
 
 ---
 
 ### Hooks
 
-"Setup react dev tools pour le projet"
-
-Les Hooks sont arrivés avec React 16.8. Ils vous permettent de bénéficier d’un état local et d’autres fonctionnalités de React sans avoir à écrire une classe.
-
-Les Hooks sont des fonctions qui permettent de « se brancher » sur la gestion d’état local et de cycle de vie de React depuis des fonctions composants.
+- React 16.8 (breaking)
+- Un état local / dans un scope de function
+- Plus besoin de class
+- Se branche sur le cycle de vie React
 
 ```js
 git checkout start-react-hook
 ```
 
-Note: Hook d'état comme useState, hook se branche sur le cycle de vie et sur la gestion d'état local
-On a aussi des Hook d'effet comme useEffect
-Possible de re render une page sans hook ?
+Note:
+- Exemple sur branch git checkout hook-example
+- Hook d'état comme useState, hook se branche sur le cycle de vie et sur la gestion d'état local
+- On a aussi des Hook d'effet comme useEffect
+- Possible de re render une page sans hook ? NON !
+- On est sur des functions composant
+- Avant on avait des classes, avec des function basé sur les cycles de vie (mount/update) maintenant on est sur des composant fonctionnel. Et les Hooks "remplacent" ça
+- Example stashed
+- -> cas pratique 30min/45min
+- Hook -> explication autour du useState/useEffect pour le lien actif du menu -> cas concret avec appel API fake
 
 ---
 
-### Contexte
+### Contexte (1/2)
 
-Le Contexte offre un moyen de faire passer des données à travers l’arborescence du composant sans avoir à passer manuellement les props à chaque niveau.
+<img height=400 src="./assets/without-context.png">
 
 ```js
-git checkout start-hook-and-context-provider
+git checkout start-custom-hook-and-context-provider
 ```
 
----
+Note:
 
-Slide pour aller plus loin
-Doc
-Remplir questionnaire de satisfaction
-PRéparer onglet de présentation de mes app persos en react
-vercel
-https://instagram-clone-nextjs-eight.vercel.app
-https://spotify-clone-nextjs-nine.vercel.app
-https://airbnb-clone-nextjs-chi.vercel.app
-
-Netlify
-https://magic-tools.netlify.app
-
-Veille react
-https://www.getrevue.co/profile/sebastien-lorber?utm_campaign=Issue&utm_content=topprofilename&utm_medium=email&utm_source=React+Hebdo
-
-Intégration avec Vercel pour l'upload
-
-passez d'une app de poke à un vrai projet
+- C'est compliqué dés qu'on à des composant imbriqué de passer les props
+- -> cas pratique 30min/45min
+- Context -> exemple avec le dark / light theme --> cas concret mettre à jour cette valeur
 
 ---
 
-Hook -> explication autour du useState/useEffect pour le lien actif du menu -> cas concret avec appel API fake
-Context -> exemple avec le dark / light theme --> cas concret mettre à jour cette valeur
-Explication du useToggle
-Exercice final -> supprimer ligne tableau et mettre à jour la KPI earning
-Présentation de react router dom
+### Contexte (1/2)
+
+<img height=500 src="./assets/with-context.png">
+
+---
+
+### Utilisation avancée
+
+note: Explication du useToggle
+
+---
+
+### Autonomie
+
+Actions sur les lignes du tableau et mettre à jour les KPI
+
+---
+
+### Aller plus loin
+
+- Hébergement : Vercel & Netlify
+- [Instagram](https://instagram-clone-nextjs-eight.vercel.app)
+- [Spotify](https://spotify-clone-nextjs-nine.vercel.app)
+- [Air BnB](https://airbnb-clone-nextjs-chi.vercel.app)
+- [Magic-tools](https://magic-tools.netlify.app)
+- [Veille react](https://www.getrevue.co/profile/sebastien-lorber?utm_campaign=Issue&utm_content=topprofilename&utm_medium=email&utm_source=React+Hebdo)
+
+Note:
+
+- Intégration avec Vercel pour l'upload
+- passez d'une app de poke à un vrai projet

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="plugin/highlight/monokai.css" />
 
     <!-- Ajout du theme Kanoma (police par défaut)-->
-    <!-- <link rel="stylesheet" href="dist/theme/kanoma/kanoma.css" id="theme" /> -->
+    <link rel="stylesheet" href="css/uhue.css" />
     <link rel="stylesheet" href="dist/theme/solarized.css" id="theme" />
   </head>
 
@@ -35,6 +35,17 @@
     <script src="./plugin/notes/notes.js"></script>
     <script>
       Reveal.initialize({
+        width: 960,
+        height: 700,
+
+        // Factor of the display size that should remain empty around
+        // the content
+        margin: 0.04,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 2.0,
+
         controls: true,
         progress: true,
         history: true,
@@ -45,10 +56,5 @@
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
       });
     </script>
-
-    <!-- <div>
-      <p class="output"><em>...en attente</em></p>
-    </div>
-    <script src="./js/speech.js"></script> -->
   </body>
 </html>

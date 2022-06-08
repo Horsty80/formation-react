@@ -210,7 +210,7 @@ html * {
 .reveal pre {
   display: block;
   position: relative;
-  width: 90%;
+  width: 100%;
   margin: var(--r-block-margin) auto;
   text-align: left;
   font-size: 0.55em;
@@ -259,13 +259,13 @@ html * {
   border-bottom: 1px solid;
 }
 
-.reveal table th[align=center],
-.reveal table td[align=center] {
+.reveal table th[align="center"],
+.reveal table td[align="center"] {
   text-align: center;
 }
 
-.reveal table th[align=right],
-.reveal table td[align=right] {
+.reveal table th[align="right"],
+.reveal table td[align="right"] {
   text-align: right;
 }
 
